@@ -22,8 +22,13 @@ app.use(express.json());
 // Routes
 app.use('/', pasteRoutes);
 
-const PORT = process.env.PORT || 5000;
+// Export app for Vercel
+export default app;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Only listen if run directly (not imported)
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
